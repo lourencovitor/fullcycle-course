@@ -1,1 +1,1 @@
-# -fullcycle-course
+# fullcycle-course
