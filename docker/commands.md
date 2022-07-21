@@ -27,3 +27,35 @@
 `docker exec nginx bash` - executa o bash do container nginx executa e sai
 
 `docker exec -it nginx bash` - executa o bash e trava no bash do container para que você possa digitar dentro do container
+
+`docker run -d -v "$(pwd)"/html/x:/usr/share/nginx/html nginx` - diferença entre -v para --mount o -v cria o arquivo ou diretorio caso não exista
+
+`docker run -d -name nginx -p 8080:80 -v ~/Documents/vitor/html/:/usr/share/nginx/html nginx | docker run -d --name nginx -p 8080:80 --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html nginx` - Criando volume (comando -v é antigo | utilizando jeito novo)
+
+`docker volume` - mostra um helper do volume
+
+`docker volume ls` - mosta a lista de volumes
+
+`docker volume create meuvolume` - criando um volume
+
+`docker volume inspect meuvolume` - Informações sobre o volume
+
+`docker run --name nginx -d --mount type=volume,source=meuvolume,target=/app nginx` - compartilhando volumes caso utilize o mesmo volume para dois containers algo que cria apaga ou edita sera afetado no volume
+
+`docker volume prune` - mata tudo que não ta sendo utilizado dentro da sua maquina
+
+`docker pull ubuntu` - baixar imagem para o seu computador
+
+`docker images` - lista todas as imagens
+
+`docker rmi php:latest` - remover uma imagem
+
+`docker build -t vitorlourenco/nginx-com-vim:latest .` - gerando uma imagem com Dockerfile
+
+`docker ps -a -q` - pega todos os ids
+
+`docker rm $(docker ps -a -q) -f` - Matar todos os containers que estão ativos e inativos
+
+`docker run --rm vitorlourenco/nginx-com-vim echo "oi"` - substitui o que mostraria no CMD para o que passamos ao echo
+
+`` -
