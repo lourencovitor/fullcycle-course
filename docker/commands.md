@@ -58,4 +58,6 @@
 
 `docker run --rm vitorlourenco/nginx-com-vim echo "oi"` - substitui o que mostraria no CMD para o que passamos ao echo
 
-`` -
+`docker run --rm -it -v $(pwd)/:usr/src/app -p 3000:3000 node:15 bash` - rodando node pelo container mais acessando aplicação da maquina
+
+`docker build -t lourencovitor/hello-express . -f Dockerfile.prod` - gerando imagem com Dockerfile.prod
