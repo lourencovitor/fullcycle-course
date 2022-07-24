@@ -61,3 +61,11 @@
 `docker run --rm -it -v $(pwd)/:usr/src/app -p 3000:3000 node:15 bash` - rodando node pelo container mais acessando aplicação da maquina
 
 `docker build -t lourencovitor/hello-express . -f Dockerfile.prod` - gerando imagem com Dockerfile.prod
+
+`docker-compose up ` - subindo aplicação do arquivo compose
+
+`docker-compose down` - desce o container
+
+`docker-compose ps` - lista container rodando em compose
+
+`docker-compose up -d --build` - sobe o container e refaz o build antes
