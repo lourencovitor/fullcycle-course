@@ -1,0 +1,36 @@
+
+// subindo consul
+consul agent -dev
+
+// mostrar a lista de consul rodando (todos que fazem parte do seu cluster)
+consul members
+
+// lista de nodes (Gossip protocol)
+curl localhost:8500/v1/catalog/nodes
+
+// add bind-tools
+apk -U add bind-tools
+
+// bater no localhost na porta 8600
+dig @localhost -p 8600
+
+// consultando um cara especifico
+dig @localhost -p 8600 consul01.node.consul
+
+// configurações de rede da maquina
+ifconfig
+
+// Subindo agente server
+consul agent -server -bootstrap-expect=3 -node=consulserve01 -bind=172.26.0.4 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+consul agent -server -bootstrap-expect=3 -node=consulserve02 -bind=172.26.0.2 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+consul agent -server -bootstrap-expect=3 -node=consulserve03 -bind=172.26.0.3 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+
+# mkdir /etc/consul.d
+# mkdir /var/lib/consul
+
+// Subindo agente client
+consult agent -bind=172.26.0.5 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+
+// subindo agente client com retry join
+consul agent -bind=172.26.0.6 -data-dir=/var/lib/consul -config-dir=/etc/consul.d -retry-join=172.26.0.4
+
