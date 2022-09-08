@@ -19,7 +19,7 @@ import Address from "./address"
 
 
 // Entidade focada em negocio
-class Customer{
+export default class Customer{
   _id: string
   _name: string = ""
   _address!: Address
