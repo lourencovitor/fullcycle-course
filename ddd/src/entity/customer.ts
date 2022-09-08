@@ -1,6 +1,8 @@
 
 // Uma entidade é unica mais os atributos podem mudar com o tempo
 
+import Address from "./address"
+
 // entidade tem que representar o estado correto e atual daquele elemento
 
 // Uma entidade por padrão sempre vai ter que se autovalidar
@@ -20,7 +22,7 @@
 class Customer{
   _id: string
   _name: string = ""
-  _address: string = ""
+  _address!: Address
   _active: boolean = false
 
   constructor(id:string, name:string){
@@ -49,7 +51,7 @@ class Customer{
   }
 
   activate(){
-    if(this._address.length === 0){
+    if(this._address === undefined){
       throw new Error('Address is mandatory to activate a costumer')
     }
     this._active = true
@@ -58,9 +60,11 @@ class Customer{
   desactivate(){
     this._active = false
   }
-}
 
-let costumer = new Customer("123", "")
+  set Address(address: Address){
+    this._address = address
+  }
+}
 // TEM QUE ESTAR CONSISTENTE
 
 
