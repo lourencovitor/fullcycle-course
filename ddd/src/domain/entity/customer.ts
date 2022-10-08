@@ -59,6 +59,14 @@ export default class Customer{
     this.validate()
   }
 
+  get Address(): Address {
+    return this._address;
+  }
+
+  changeAddress(address:Address){
+    this._address = address
+  }
+
   isActive():boolean{
     return this._active
   }
@@ -77,9 +85,8 @@ export default class Customer{
   set Address(address: Address){
     this._address = address
   }
-
-  addRewardPoint(points:number){
-    this._rewardPoints += points
+  addRewardPoints(points: number) {
+    this._rewardPoints += points;
   }
 }
 // TEM QUE ESTAR CONSISTENTE
