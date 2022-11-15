@@ -25,6 +25,7 @@ describe("Test find customer use case", () => {
   });
 
   it("should find a customer", async () => {
+    // Arrange
     const customerRepository = new CustomerRepository();
     const usecase = new FindCustomerUseCase(customerRepository);
 
@@ -49,8 +50,10 @@ describe("Test find customer use case", () => {
       },
     };
 
+    // Act
     const result = await usecase.execute(input);
 
+    // Assert
     expect(result).toEqual(output);
   });
 });
