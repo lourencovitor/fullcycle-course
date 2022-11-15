@@ -61,7 +61,6 @@ describe("Unit test create customer use case", () => {
       const resultPromise = createCustomerUseCase.execute(inputModified);
 
       // Assert
-
       expect(resultPromise).rejects.toThrow(message);
     }
   );
