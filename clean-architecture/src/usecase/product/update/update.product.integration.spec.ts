@@ -36,8 +36,8 @@ describe("Integration test update product use case", () => {
     const updateProductUseCase = new UpdateProductUseCase(productRepository);
     const productCreated = await createProductUseCase.execute({
       type: "a",
-      name: "Product 2",
-      price: 150,
+      name: "Product 1",
+      price: 100,
     });
 
     // Act
