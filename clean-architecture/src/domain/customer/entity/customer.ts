@@ -63,6 +63,7 @@ export default class Customer extends Entity {
     this._rewardPoints += points;
   }
 
+  // tslint:disable-next-line:adjacent-overload-signatures
   set Address(address: Address) {
     this._address = address;
   }
