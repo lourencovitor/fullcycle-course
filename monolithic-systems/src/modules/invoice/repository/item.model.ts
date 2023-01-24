@@ -6,22 +6,16 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import InvoiceModel from "./invoice.model";
+import { InvoiceModel } from "./invoice.model";
 
 @Table({
-  tableName: "products",
+  tableName: "invoices_items",
   timestamps: false,
 })
-export default class ProductModel extends Model {
+export class InvoiceItemModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   id: string;
-
-  @Column({ allowNull: false })
-  name: string;
-
-  @Column({ allowNull: false })
-  price: number;
 
   @ForeignKey(() => InvoiceModel)
   @Column({ allowNull: false })
@@ -30,4 +24,10 @@ export default class ProductModel extends Model {
 
   @BelongsTo(() => InvoiceModel)
   invoice: Awaited<InvoiceModel>;
+
+  @Column({ allowNull: false })
+  name: string;
+
+  @Column({ allowNull: false })
+  price: number;
 }

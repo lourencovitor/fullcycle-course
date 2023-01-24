@@ -1,18 +1,21 @@
+import UseCaseInterface from "../../@shared/usecase/use-case.interface";
 import InvoiceFacade from "../facade/invoice.facade";
+import InvoiceFacadeInterface from "../facade/invoice.facade.interface";
+import InvoiceGateway from "../gateway/invoice.gateway";
 import InvoiceRepository from "../repository/invoice.repository";
 import FindInvoiceUseCase from "../usecase/find-invoice/find.invoice.usecase";
-
 import GenerateInvoiceUseCase from "../usecase/generate-invoice/generate-invoice.usecase";
 
 export default class InvoiceFacadeFactory {
-  static create() {
+  static create(): InvoiceFacadeInterface {
     const repository = new InvoiceRepository();
-    const generateUsecase = new GenerateInvoiceUseCase(repository);
-    const findUsecase = new FindInvoiceUseCase(repository);
-    const facade = new InvoiceFacade({
-      generateInvoiceUsecase: generateUsecase,
-      findInvoiceUsecase: findUsecase,
-    });
-    return facade;
+    const generateInvoiceUseCase = new GenerateInvoiceUseCase(repository);
+    const findInvoiceUseCase = new FindInvoiceUseCase(repository);
+
+    return new InvoiceFacade(
+      repository,
+      generateInvoiceUseCase,
+      findInvoiceUseCase
+    );
   }
 }

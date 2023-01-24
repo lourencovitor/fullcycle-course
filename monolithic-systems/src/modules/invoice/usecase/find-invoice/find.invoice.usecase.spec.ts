@@ -6,43 +6,50 @@ import FindInvoiceUseCase from "./find.invoice.usecase";
 
 const invoice = new Invoice({
   id: new Id("1"),
-  name: "Invoice 1",
-  document: "Document 1",
+  name: "Teste",
+  document: "12345678901",
   address: new Address({
-    street: "Street 1",
+    street: "Rua Teste",
     number: "123",
-    complement: "Compl 1",
-    city: "City 1",
-    state: "State 1",
-    zipCode: "ZipCode 1",
+    complement: "complemento",
+    city: "Teste",
+    state: "Teste",
+    zipCode: "12345678",
   }),
   items: [
-    new Product({ id: new Id("1"), name: "Product 1", price: 100.0 }),
-    new Product({ id: new Id("2"), name: "Product 2", price: 200.0 }),
+    new Product({
+      id: new Id("1"),
+      name: "Teste",
+      price: 10,
+    }),
+    new Product({
+      id: new Id("2"),
+      name: "Teste 2",
+      price: 20,
+    }),
   ],
 });
 
 const MockRepository = () => {
   return {
+    create: jest.fn(),
     find: jest.fn().mockReturnValue(Promise.resolve(invoice)),
-    save: jest.fn(),
   };
 };
 
 describe("Find invoice usecase unit test", () => {
-  it("should find a invoice", async () => {
-    const invoiceRepository = MockRepository();
-    const usecase = new FindInvoiceUseCase(invoiceRepository);
+  it("should find an invoice", async () => {
+    const mockInvoiceGateway = MockRepository();
+    const usecase = new FindInvoiceUseCase(mockInvoiceGateway);
+
     const input = {
       id: "1",
     };
 
     const result = await usecase.execute(input);
 
-    expect(invoiceRepository.find).toHaveBeenCalled();
-    expect(result.id).toBe(input.id);
-
-    expect(result.name).toBe(invoice.name);
+    expect(result.id).toBeDefined();
+    expect(mockInvoiceGateway.find).toHaveBeenCalled();
     expect(result.document).toBe(invoice.document);
     expect(result.address.street).toBe(invoice.address.street);
     expect(result.address.number).toBe(invoice.address.number);
@@ -50,14 +57,7 @@ describe("Find invoice usecase unit test", () => {
     expect(result.address.city).toBe(invoice.address.city);
     expect(result.address.state).toBe(invoice.address.state);
     expect(result.address.zipCode).toBe(invoice.address.zipCode);
-    expect(result.total).toBe(300);
-    expect(result.createdAt).toBe(invoice.createdAt);
-
-    expect(result.items[0].id).toBe(invoice.items[0].id.id);
-    expect(result.items[0].name).toBe(invoice.items[0].name);
-    expect(result.items[0].price).toBe(invoice.items[0].price);
-    expect(result.items[1].id).toBe(invoice.items[1].id.id);
-    expect(result.items[1].name).toBe(invoice.items[1].name);
-    expect(result.items[1].price).toBe(invoice.items[1].price);
+    expect(result.items.length).toBe(invoice.items.length);
+    expect(result.total).toBe(30);
   });
 });

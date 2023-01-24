@@ -5,8 +5,6 @@ type ProductProps = {
   id?: Id;
   name: string;
   price: number;
-  createdAt?: Date;
-  updatedAt?: Date;
 };
 
 export default class Product extends BaseEntity {
@@ -14,16 +12,16 @@ export default class Product extends BaseEntity {
   private _price: number;
 
   constructor(props: ProductProps) {
-    super(props.id, props.createdAt, props.updatedAt);
+    super(props.id);
     this._name = props.name;
     this._price = props.price;
   }
 
-  get name(): string {
-    return this._name;
-  }
-
   get price(): number {
     return this._price;
+  }
+
+  get name(): string {
+    return this._name;
   }
 }

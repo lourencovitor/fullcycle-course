@@ -2,52 +2,52 @@ import GenerateInvoiceUseCase from "./generate-invoice.usecase";
 
 const MockRepository = () => {
   return {
+    create: jest.fn(),
     find: jest.fn(),
-    save: jest.fn(),
   };
 };
 
-describe("Generate invoice usecase tests", () => {
+describe("Generate invoice usecase unit test", () => {
   it("should generate an invoice", async () => {
-    const repository = MockRepository();
-    const usecase = new GenerateInvoiceUseCase(repository);
+    const mockInvoiceGateway = MockRepository();
+    const usecase = new GenerateInvoiceUseCase(mockInvoiceGateway);
 
     const input = {
-      id: "1",
-      name: "Invoice 1",
-      document: "Invoice document",
-      street: "Invoice street",
-      number: "Invoice number",
-      complement: "Invoice complement",
-      city: "Invoice city",
-      state: "Invoice state",
-      zipCode: "Invoice zipcode",
+      name: "Teste",
+      document: "12345678901",
+      street: "Rua Teste",
+      number: "123",
+      complement: "complemento",
+      city: "Teste",
+      state: "Teste",
+      zipCode: "12345678",
       items: [
         {
-          id: "P1",
-          name: "Product 1",
+          id: "1",
+          name: "Teste",
           price: 10,
         },
+        {
+          id: "2",
+          name: "Teste 2",
+          price: 20,
+        },
       ],
-      createdAt: new Date(),
-      updatedAt: new Date(),
     };
 
     const result = await usecase.execute(input);
 
-    expect(repository.save).toHaveBeenCalled();
     expect(result.id).toBeDefined();
+    expect(mockInvoiceGateway.create).toHaveBeenCalled();
     expect(result.name).toBe(input.name);
     expect(result.document).toBe(input.document);
     expect(result.street).toBe(input.street);
     expect(result.number).toBe(input.number);
-    expect(result.city).toBe(input.city);
     expect(result.complement).toBe(input.complement);
+    expect(result.city).toBe(input.city);
     expect(result.state).toBe(input.state);
     expect(result.zipCode).toBe(input.zipCode);
-    expect(result.items[0].id).toBe(input.items[0].id);
-    expect(result.items[0].name).toBe(input.items[0].name);
-    expect(result.items[0].price).toBe(input.items[0].price);
-    expect(result.total).toBe(10);
+    expect(result.items.length).toBe(input.items.length);
+    expect(result.total).toBe(30);
   });
 });

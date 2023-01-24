@@ -1,4 +1,3 @@
-import Client from "../../domain/client.entity";
 import ClientGateway from "../../gateway/client.gateway";
 import {
   FindClientInputDto,
@@ -6,21 +5,22 @@ import {
 } from "./find-client.usecase.dto";
 
 export default class FindClientUseCase {
-  private _clientRepository: ClientGateway;
-  constructor(private repository: ClientGateway) {
-    this._clientRepository = repository;
-  }
+  constructor(private readonly repository: ClientGateway) {}
 
   async execute(input: FindClientInputDto): Promise<FindClientOutputDto> {
-    const client = await this._clientRepository.find(input.id);
+    const client = await this.repository.find(input.id);
 
     return {
       id: client.id.id,
       name: client.name,
       email: client.email,
-      address: client.address,
-      createdAt: client.createdAt,
-      updatedAt: client.updatedAt,
+      document: client.document,
+      street: client.address.street,
+      number: client.address.number,
+      complement: client.address.complement,
+      city: client.address.city,
+      state: client.address.state,
+      zipCode: client.address.zipCode,
     };
   }
 }

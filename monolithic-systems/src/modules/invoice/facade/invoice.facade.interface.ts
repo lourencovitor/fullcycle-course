@@ -1,8 +1,4 @@
-export interface FindInvoiceFacadeInputDto {
-  id: string;
-}
-
-export interface FindInvoiceFacadeOutputDto {
+export interface FindInvoiceFacadeOutputDTO {
   id: string;
   name: string;
   document: string;
@@ -39,7 +35,27 @@ export interface GenerateInvoiceFacadeInputDto {
   }[];
 }
 
+export interface GenerateInvoiceFacadeOutputDto {
+  id: string;
+  name: string;
+  document: string;
+  street: string;
+  number: string;
+  complement: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  items: {
+    id: string;
+    name: string;
+    price: number;
+  }[];
+  total: number;
+}
+
 export default interface InvoiceFacadeInterface {
-  save(input: GenerateInvoiceFacadeInputDto): Promise<void>;
-  find(input: FindInvoiceFacadeInputDto): Promise<FindInvoiceFacadeOutputDto>;
+  create(
+    invoice: GenerateInvoiceFacadeInputDto
+  ): Promise<GenerateInvoiceFacadeOutputDto>;
+  find(id: string): Promise<FindInvoiceFacadeOutputDTO>;
 }

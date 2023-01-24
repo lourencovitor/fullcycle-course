@@ -1,5 +1,3 @@
-import ValueObject from "../../@shared/domain/value-object/value-object.interface";
-
 type AddressProps = {
   street: string;
   number: string;
@@ -9,7 +7,7 @@ type AddressProps = {
   zipCode: string;
 };
 
-export default class Address implements ValueObject {
+export default class Address {
   private _street: string;
   private _number: string;
   private _complement: string;
@@ -48,5 +46,9 @@ export default class Address implements ValueObject {
 
   get zipCode(): string {
     return this._zipCode;
+  }
+
+  get fullAddress(): string {
+    return `${this._street}, ${this._number} - ${this._city} - ${this._state}`;
   }
 }

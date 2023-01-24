@@ -5,13 +5,13 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import ProductModel from "./product.model";
+import { InvoiceItemModel } from "./item.model";
 
 @Table({
   tableName: "invoices",
   timestamps: false,
 })
-export default class InvoiceModel extends Model {
+export class InvoiceModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   id: string;
@@ -38,14 +38,14 @@ export default class InvoiceModel extends Model {
   state: string;
 
   @Column({ allowNull: false })
-  zipCode: string;
+  zipcode: string;
 
-  @HasMany(() => ProductModel)
-  products: Awaited<ProductModel[]>;
+  @HasMany(() => InvoiceItemModel)
+  items: Awaited<InvoiceItemModel[]>;
+
+  @Column({ allowNull: false })
+  total: number;
 
   @Column({ allowNull: false })
   createdAt: Date;
-
-  @Column({ allowNull: false })
-  updatedAt: Date;
 }
