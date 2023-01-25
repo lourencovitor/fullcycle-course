@@ -1,4 +1,4 @@
-import AddProductUsecase from "./ad-product.usecase";
+import AddProductUseCase from "./ad-product.usecase";
 
 const MockRepository = () => {
   return {
@@ -7,23 +7,20 @@ const MockRepository = () => {
   };
 };
 
-describe("Add Product usecase uni test", () => {
-  it("Should add a product", async () => {
-    // Arrange
+describe("Add Product usecase unit test", () => {
+  it("should add a product", async () => {
     const productRepository = MockRepository();
-    const usecase = new AddProductUsecase(productRepository);
+    const usecase = new AddProductUseCase(productRepository);
 
     const input = {
       name: "Product 1",
-      description: "Product description 1",
+      description: "Product 1 description",
       purchasePrice: 100,
       stock: 10,
     };
 
-    // Act
     const result = await usecase.execute(input);
 
-    // Assert
     expect(productRepository.add).toHaveBeenCalled();
     expect(result.id).toBeDefined();
     expect(result.name).toBe(input.name);

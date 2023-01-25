@@ -3,7 +3,7 @@ import Product from "../../domain/product.entity";
 import ProductGateway from "../../gateway/product.gateway";
 import { AddProductInputDto, AddProductOutputDto } from "./ad-product.dto";
 
-export default class AddProductUsecase {
+export default class AddProductUseCase {
   private _productRepository: ProductGateway;
 
   constructor(_productRepository: ProductGateway) {
@@ -20,7 +20,6 @@ export default class AddProductUsecase {
     };
 
     const product = new Product(props);
-
     this._productRepository.add(product);
 
     return {

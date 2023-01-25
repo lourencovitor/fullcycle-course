@@ -24,6 +24,7 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
 
   private createInvoice(input: GenerateInvoiceUseCaseInputDto): Invoice {
     return new Invoice({
+      id: new Id(input.id),
       name: input.name,
       document: input.document,
       address: new Address({
