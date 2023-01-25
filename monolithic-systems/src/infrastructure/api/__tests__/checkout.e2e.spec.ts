@@ -40,8 +40,6 @@ describe("E2E test for checkout", () => {
     await sequelize.sync();
   });
 
-  afterAll(() => sequelize.close());
-
   it("should a place order ", async () => {
     const clientFacade = ClientAdmFacadeFactory.create();
     const productFacade = ProductAdmFacadeFactory.create();
